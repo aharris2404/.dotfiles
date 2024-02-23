@@ -92,3 +92,19 @@
 ;;
 ;;
 (add-hook 'window-setup-hook #'toggle-frame-fullscreen)
+
+;; PATH
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
+;; KEYBINDINGS
+
+(map! :leader
+      :desc "Switch between most recent buffer"
+      "b TAB"
+      #'evil-switch-to-windows-last-buffer)
+
+(map! :leader
+      :desc "Switch to next window"
+      "w TAB"
+      #'evil-window-next)

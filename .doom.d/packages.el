@@ -11,6 +11,8 @@
 
 (package! simple-httpd)
 
+(package! exec-path-from-shell)
+
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
 ;; https://github.com/radian-software/straight.el#the-recipe-format
