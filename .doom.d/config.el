@@ -108,3 +108,38 @@
       :desc "Switch to next window"
       "w TAB"
       #'evil-window-next)
+
+
+
+(map!
+  :leader
+  :after rustic
+  :map rustic-mode-map
+  :desc "cargo run with input"
+  "m b I"
+  #'my-cargo-run)
+(defun my-cargo-run ()
+  "Build and run Rust code."
+  (interactive)
+  (rustic-cargo-run)
+  (let (
+      (orig-win (selected-window))
+      (run-win (display-buffer (get-buffer "*cargo-run*") nil 'visible))
+    )
+    (select-window run-win)
+    (comint-mode)
+    (read-only-mode 0)
+    (select-window orig-win)
+  )
+)
+
+;;UNSETTER
+;;
+;;(map!
+;;  :leader
+;;  :after rustic
+;;  :map rustic-mode-map
+;;  "m b I"
+;;  nil)
+;;
+;;
