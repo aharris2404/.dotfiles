@@ -9,6 +9,13 @@
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;; (package! some-package)
 
+<<<<<<< HEAD
+=======
+(package! simple-httpd)
+
+(package! exec-path-from-shell)
+
+>>>>>>> ece9317d2c59288d180d3c5132ddd46eea372562
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
 ;; https://github.com/radian-software/straight.el#the-recipe-format

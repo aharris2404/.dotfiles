@@ -1,8 +1,7 @@
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
-
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
@@ -18,21 +17,34 @@
 ;; - `doom-symbol-font' -- for symbols
 ;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
 ;;
-;; See 'C-h v doom-font' for documentation and more examples of what they
-;; accept. For example:
+;; see 'c-h v doom-font' for documentation and more examples of what they
+;; accept. for example:
 ;;
-;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
-;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+(setq doom-font (font-spec :family "monaco" :size 16 :weight 'medium))
+;;(setq doom-font (font-spec :family "fira code" :size ))
 ;;
-;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
-;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
-;; refresh your font settings. If Emacs still can't find your font, it likely
-;; wasn't installed correctly. Font issues are rarely Doom issues!
+;;(setq doom-font (font-spec :family "fira code" :size 12 :weight 'semi-light)
+;;      doom-variable-pitch-font (font-spec :family "fira sans" :size 13))
+;;
+;; if you or emacs can't find your font, use 'm-x describe-font' to look them
+;; up, `m-x eval-region' to execute elisp code, and 'm-x doom/reload-font' to
+;; refresh your font settings. if emacs still can't find your font, it likely
+;; wasn't installed correctly. font issues are rarely doom issues!
 
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+;; there are two ways to load a theme. both assume the theme is installed and
+;; available. you can either set `doom-theme' or manually load a theme with the
+;; `load-theme' function. this is the default:
+(setq doom-theme 'doom-opera)
+
+(custom-theme-set-faces! 'doom-opera
+  '(line-number :foreground "dim gray")
+  '(line-number-current-line :foreground "white")
+  ;; '(doom-modeline-project-dir :foreground "blue")
+  ;; '(doom-modeline-buffer-path   :foreground "blue")
+  ;;'(mode-line-inactive :background "dim gray" :foreground "white" :height 80)
+  ;;'(mode-line :background "black")
+  ;;'(default :background "#002b36")
+  )
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -41,7 +53,6 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
-
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -79,3 +90,56 @@
 (add-to-list 'exec-path "/Library/TeX/texbin/")
 
 (setq org-latex-create-formula-image-program 'dvisvgm)
+;; USER CUSTOMIZATION
+;;
+;;
+(add-hook 'window-setup-hook #'toggle-frame-fullscreen)
+
+;; PATH
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
+;; KEYBINDINGS
+
+(map! :leader
+      :desc "Switch between most recent buffer"
+      "b TAB"
+      #'evil-switch-to-windows-last-buffer)
+
+(map! :leader
+      :desc "Switch to next window"
+      "w TAB"
+      #'evil-window-next)
+
+(map!
+  :leader
+  :after rustic
+  :map rustic-mode-map
+  :desc "cargo run with input"
+  "m b I"
+  #'my-cargo-run)
+(defun my-cargo-run ()
+  "Build and run Rust code."
+  (interactive)
+  (rustic-cargo-run)
+  (let (
+      (orig-win (selected-window))
+      (run-win (display-buffer (get-buffer "*cargo-run*") nil 'visible))
+    )
+    (select-window run-win)
+    (comint-mode)
+    (read-only-mode 0)
+    (select-window orig-win)
+  )
+)
+
+;;UNSETTER
+;;
+;;(map!
+;;  :leader
+;;  :after rustic
+;;  :map rustic-mode-map
+;;  "m b I"
+;;  nil)
+;;
+;;
