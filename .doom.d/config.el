@@ -109,15 +109,10 @@
       "w TAB"
       #'evil-window-next)
 
-
-
-(map!
-  :leader
-  :after rustic
-  :map rustic-mode-map
-  :desc "cargo run with input"
-  "m b I"
-  #'my-cargo-run)
+(map! :map rustic-mode-map
+  :localleader
+  (:prefix ("b" . "build")
+    :desc "cargo run with input"     "I" #'my-cargo-run))
 (defun my-cargo-run ()
   "Build and run Rust code."
   (interactive)
@@ -141,5 +136,4 @@
 ;;  :map rustic-mode-map
 ;;  "m b I"
 ;;  nil)
-;;
 ;;
