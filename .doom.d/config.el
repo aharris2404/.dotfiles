@@ -124,7 +124,6 @@
     (select-window run-win)
     (comint-mode)
     (read-only-mode 0)
-    (select-window orig-win)
   )
 )
 
