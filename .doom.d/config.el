@@ -136,3 +136,8 @@
 ;;  "m b I"
 ;;  nil)
 ;;
+
+(after! restclient (require 'gnutls))
+
+(after! evil-escape
+  (setq evil-escape-key-sequence "fd"))
