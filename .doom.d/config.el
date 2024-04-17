@@ -87,6 +87,11 @@
 ;; they are implemented.
 
 (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
+(setq url-proxy-services
+      '(("no_proxy" . "^.*\\(verizon\\|verizonwireless\\)\\.com")
+        ("http" . "vzproxy.verizon.com:80")
+        ("https" . "vzproxy.verizon.com:80"))
+      )
 (add-to-list 'exec-path "/Library/TeX/texbin/")
 
 (setq org-latex-create-formula-image-program 'dvisvgm)
@@ -143,3 +148,10 @@
 ;;  nil)
 ;;
 ;;
+
+;;work
+(setq url-proxy-services
+      '(("no_proxy" . "^.*\\(gitlab\\|verizon\\)\\.com")
+        ("http" . "vzproxy.verizon.com:80")
+        ("https" . "vzproxy.verizon.com:80"))
+      )
