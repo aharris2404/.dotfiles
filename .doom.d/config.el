@@ -1,12 +1,10 @@
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
-
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets. It is optional.
-;; (setq user-full-name "John Doe"
+;; clients, file templates and snippets. It is optional. (setq user-full-name "John Doe"
 ;;       user-mail-address "john@doe.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
@@ -55,7 +53,6 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
-
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;
@@ -88,6 +85,10 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+(setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
+(add-to-list 'exec-path "/Library/TeX/texbin/")
+
+(setq org-latex-create-formula-image-program 'dvisvgm)
 ;; USER CUSTOMIZATION
 ;;
 ;;
@@ -136,8 +137,21 @@
 ;;  "m b I"
 ;;  nil)
 ;;
+;;
 
 (after! restclient (require 'gnutls))
 
 (after! evil-escape
   (setq evil-escape-key-sequence "fd"))
+
+(add-to-list 'load-path "~/.dotfiles/.doom.d/machine")
+
+;;work
+(if (equal (system-name) "P3747P2J9Q")
+    (load "vz-mac")
+  )
+
+;;personal
+(if (equal (system-name) "Andrews-MBP")
+    (load "andrew-mac")
+  )
