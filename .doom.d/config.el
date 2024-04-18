@@ -94,6 +94,8 @@
 ;;
 (add-hook 'window-setup-hook #'toggle-frame-fullscreen)
 
+(advice-add #'org-toggle-heading :after #'recenter-top-bottom)
+
 ;; PATH
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
@@ -128,17 +130,6 @@
   )
 )
 
-;;UNSETTER
-;;
-;;(map!
-;;  :leader
-;;  :after rustic
-;;  :map rustic-mode-map
-;;  "m b I"
-;;  nil)
-;;
-;;
-
 (after! restclient (require 'gnutls))
 
 (after! evil-escape
@@ -155,3 +146,4 @@
 (if (equal (system-name) "Andrews-MBP")
     (load "andrew-mac")
   )
+
