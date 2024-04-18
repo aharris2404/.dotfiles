@@ -4,8 +4,7 @@
 ;; sync' after modifying this file!
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets. It is optional.
-;; (setq user-full-name "John Doe"
+;; clients, file templates and snippets. It is optional. (setq user-full-name "John Doe"
 ;;       user-mail-address "john@doe.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
@@ -87,11 +86,6 @@
 ;; they are implemented.
 
 (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
-(setq url-proxy-services
-      '(("no_proxy" . "^.*\\(verizon\\|verizonwireless\\)\\.com")
-        ("http" . "vzproxy.verizon.com:80")
-        ("https" . "vzproxy.verizon.com:80"))
-      )
 (add-to-list 'exec-path "/Library/TeX/texbin/")
 
 (setq org-latex-create-formula-image-program 'dvisvgm)
@@ -145,13 +139,19 @@
 ;;
 ;;
 
-;;work
-(setq url-proxy-services
-      '(("no_proxy" . "^.*\\(gitlab\\|verizon\\)\\.com")
-        ("http" . "vzproxy.verizon.com:80")
-        ("https" . "vzproxy.verizon.com:80"))
-      )
 (after! restclient (require 'gnutls))
 
 (after! evil-escape
   (setq evil-escape-key-sequence "fd"))
+
+(add-to-list 'load-path "~/.dotfiles/.doom.d/machine")
+
+;;work
+(if (equal (system-name) "P3747P2J9Q")
+    (load "vz-mac")
+  )
+
+;;personal
+(if (equal (system-name) "Andrews-MBP")
+    (load "andrew-mac")
+  )
