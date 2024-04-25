@@ -6,31 +6,44 @@
         ("https" . "vzproxy.verizon.com:80"))
       )
 
-(message "Successfully loaded VZ-mac configuration!")
+(defun get-or-create-magit-shell ()
+  (let ((process-name (format "*shell: %s*" (magit-toplevel))))
+    (unless (get-buffer process-name)
+      (shell process-name)
+      (comint-send-string process-name (format "cd %s\n" (magit-toplevel))))
+    (get-buffer process-name)))
 
-(defun my-run-in-inferior-shell (input)
-    (interactive "sInput: ")
-    (comint-send-string "*shell*" (concat input "\n")))
-
-(defun my-git-pull-in-inferior-shell (remote branch)
+(defun magit-push-in-inferior-shell (remote branch)
   (interactive "sRemote: \nsBranch: ")
-    (comint-send-string "*shell*" (format "git pull %s %s\n" remote branch)))
+  (let ((process (get-or-create-magit-shell))
+        (command (format "git push %s %s\n" remote branch)))
+      (comint-send-string process command)))
 
-(defun my-git-push-in-inferior-shell (remote branch)
+(defun magit-pull-in-inferior-shell (remote branch)
   (interactive "sRemote: \nsBranch: ")
-    (comint-send-string "*shell*" (format "git push %s %s\n" remote branch)))
+  (let ((process (get-or-create-magit-shell))
+        (command (format "git pull %s %s\n" remote branch)))
+      (comint-send-string process command)))
+
+(defun magit-run-in-inferior-shell (input)
+  (interactive "sInput: ")
+  (let ((process (get-or-create-magit-shell))
+        (command (concat input "\n")))
+      (comint-send-string process command)))
 
 (map! :desc "git push in inferior shell"
       :map magit-mode-map
       :n "C-c a"
-      #'my-git-push-in-inferior-shell)
-
-(map! :desc "run in inferior shell"
-      :map magit-mode-map
-      :n "C-c !"
-      #'my-run-in-inferior-shell)
+      #'magit-push-in-inferior-shell)
 
 (map! :desc "git pull in inferior shell"
       :map magit-mode-map
       :n "C-c f"
-      #'my-git-pull-in-inferior-shell)
+      #'magit-pull-in-inferior-shell)
+
+(map! :desc "run in inferior shell"
+      :map magit-mode-map
+      :n "C-c !"
+      #'magit-run-in-inferior-shell)
+
+(message "Successfully loaded VZ-mac configuration!")
