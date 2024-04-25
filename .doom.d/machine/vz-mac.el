@@ -19,3 +19,18 @@
 (defun my-git-push-in-inferior-shell (remote branch)
   (interactive "sRemote: \nsBranch: ")
     (comint-send-string "*shell*" (format "git push %s %s\n" remote branch)))
+
+(map! :desc "git push in inferior shell"
+      :map magit-mode-map
+      :n "C-c a"
+      #'my-git-push-in-inferior-shell)
+
+(map! :desc "run in inferior shell"
+      :map magit-mode-map
+      :n "C-c !"
+      #'my-run-in-inferior-shell)
+
+(map! :desc "git pull in inferior shell"
+      :map magit-mode-map
+      :n "C-c f"
+      #'my-git-pull-in-inferior-shell)
