@@ -14,7 +14,7 @@
 
 (defun my-git-pull-in-inferior-shell (remote branch)
   (interactive "sRemote: \nsBranch: ")
-    (comint-send-string "*shell*" (format "git push %s %s\n" remote branch)))
+    (comint-send-string "*shell*" (format "git pull %s %s\n" remote branch)))
 
 (defun my-git-push-in-inferior-shell (remote branch)
   (interactive "sRemote: \nsBranch: ")
