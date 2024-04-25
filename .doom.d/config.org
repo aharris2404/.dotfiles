@@ -2,5 +2,5 @@
 
 * my-git-pull etc.
 ** DONE why is a call to magit-refresh not working at end of function
-** TODO how to not repeat myself so much
+** DONE how to not repeat myself so much
 ** DONE how to make it run a shell process that isn't already running
