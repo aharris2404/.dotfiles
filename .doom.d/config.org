@@ -1,6 +1,6 @@
 #+title: Config
 
 * my-git-pull etc.
-** TODO why is a call to magit-refresh not working at end of function
+** DONE why is a call to magit-refresh not working at end of function
 ** TODO how to not repeat myself so much
-** TODO how to make it run a shell process that isn't already running
+** DONE how to make it run a shell process that isn't already running

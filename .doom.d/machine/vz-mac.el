@@ -17,19 +17,22 @@
   (interactive "sRemote: \nsBranch: ")
   (let ((process (get-or-create-magit-shell))
         (command (format "git push %s %s\n" remote branch)))
-      (comint-send-string process command)))
+      (comint-send-string process command)
+      (magit-refresh)))
 
 (defun magit-pull-in-inferior-shell (remote branch)
   (interactive "sRemote: \nsBranch: ")
   (let ((process (get-or-create-magit-shell))
         (command (format "git pull %s %s\n" remote branch)))
-      (comint-send-string process command)))
+      (comint-send-string process command)
+      (magit-refresh)))
 
 (defun magit-run-in-inferior-shell (input)
   (interactive "sInput: ")
   (let ((process (get-or-create-magit-shell))
         (command (concat input "\n")))
-      (comint-send-string process command)))
+      (comint-send-string process command)
+      (magit-refresh)))
 
 (map! :desc "git push in inferior shell"
       :map magit-mode-map
