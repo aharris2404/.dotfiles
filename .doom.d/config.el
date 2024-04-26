@@ -130,6 +130,11 @@
   )
 )
 
+;; helper function to copy current-buffer-name
+(defun my-yank-buffer-file-name ()
+  (interactive)
+  (kill-new (buffer-file-name)))
+
 (after! restclient (require 'gnutls))
 
 (after! evil-escape
