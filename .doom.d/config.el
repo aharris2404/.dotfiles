@@ -140,6 +140,9 @@
 (after! evil-escape
   (setq evil-escape-key-sequence "fd"))
 
+(after! magit
+  (add-hook 'magit-status-mode-hook #'magit-dispatch))
+
 (add-to-list 'load-path "~/.dotfiles/.doom.d/machine")
 
 ;;work
